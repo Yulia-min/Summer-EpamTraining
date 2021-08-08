@@ -75,16 +75,35 @@ const forthObject = {
     five:5,
 }; 
 
-  const objectAdd = Object.keys({ ...thirdObject,...forthObject}).reduce((sum, current) => {
-    sum[current] = (thirdObject[current] || 0) + (forthObject[current] || 0);
+const fifthObject = {
+    one: 1,
+    two:2,
+    three:3,
+    five:5,
+};
+
+  /*const objectAdd = Object.keys({ ...thirdObject,...forthObject, ...fifthObject}).reduce((sum, current) => {
+    sum[current] = (thirdObject[current] || 0) + (forthObject[current] || 0) + (fifthObject[current] || 0);
     return sum;
-  }, {});
+  }, {});*/
+
   
-  document.write(Object.entries(objectAdd) + "<br>");
+  function add(...objects){
+    return  objects.reduce((sum, current) => {
+        for( let i in current){
+            sum[i] = (sum[i] || 0) + current[i];
+        }
+        return sum;
+      }, {});
+}
+
+document.write(Object.entries(add(thirdObject,forthObject,fifthObject)) + "<br>");
 
   /////////////////////////intersect of object////////////////////////////////
   
-  const objectIntersect = Object.keys(thirdObject).filter(item => item in forthObject);
+  function intersect(thirdObject,forthObject){
+    return Object.keys(thirdObject).filter(item => item in forthObject);
+  }
 
-  document.write(Object.values(objectIntersect));
+  document.write(Object.values(intersect(thirdObject,forthObject)));
 
