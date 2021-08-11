@@ -1,109 +1,42 @@
-//https://learn.javascript.ru/array-methods
-//https://learn.javascript.ru/destructuring-assignment
+/*let randn_bm = function() {  
+    let u = 0, v = 0;  
+        while (u === 0) 
+            u = Math.random();  
+        while (v === 0) 
+            v = Math.random();  
+    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * 2 | 0;
+};*/
 
-const id = Symbol("id");
+const array = [];
+const result = {};
 
-const firstObject = {
-    one: 1,
-    two:2,
-    three:3,
-    four:4,
-    eleven:11,
-};
+let randn_bm = function(){
+    while (array.length < 10) {
+        let u = 0;
+        let v = 0;  
+            while (u === 0) {
+                u = Math.random(); 
+            }
+            while (v === 0) {
+                v = Math.random(); 
+            }
 
-const secondObject = {
-    five: 5,
-    six:6,
-    seven:7,
-    eight:8,
-    nine:9,
-    [id]: 10,
-    ten:10,
-    twelve:21,
-};
-
-//Object.freeze(firstObject);
-//Object.seal(secondObject);
-
-//firstObject.eleven = 12;
-//secondObject.eight = 13;
-
-//////////////////////////practic some of properties///////////////////////////////
-
-document.write(firstObject.one + "<br>");
-document.write(firstObject["two"]);
-
-const objectValue = Object.values(firstObject);
-document.write("<br>" + objectValue);
-
-const objectKeys = Object.keys(secondObject);
-document.write("<br>" + objectKeys);
-
-const objectEntries = Object.entries(firstObject);
-document.write("<br>" + objectEntries); 
-
-Object.defineProperty(secondObject, "twelve", {
-    value: 12,
-});
-
-document.write("<br>" + secondObject.twelve);
-
-Object.defineProperty(secondObject, "twelve", {
-    value: 12,
-    configurable: false,
-    writable: false,
-});
-
-firstObject.twelve = 3;
-delete firstObject.twelve;
-
-document.write("<br>" + secondObject.twelve + "<br>");
-
-//////////////////////add of objects/////////////////////////////////////
-
-const thirdObject = {
-    one: 1,
-    two:2,
-    three:3,
-    four:4,
-};
-
-const forthObject = {
-    one: 1,
-    two:2,
-    three:3,
-    five:5,
-}; 
-
-const fifthObject = {
-    one: 1,
-    two:2,
-    three:3,
-    five:5,
-};
-
-  /*const objectAdd = Object.keys({ ...thirdObject,...forthObject, ...fifthObject}).reduce((sum, current) => {
-    sum[current] = (thirdObject[current] || 0) + (forthObject[current] || 0) + (fifthObject[current] || 0);
-    return sum;
-  }, {});*/
-
-  
-  function add(...objects){
-    return  objects.reduce((sum, current) => {
-        for( let i in current){
-            sum[i] = (sum[i] || 0) + current[i];
-        }
-        return sum;
-      }, {});
+    let number = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * 2 | 0;
+    array.push(number);
+}
 }
 
-document.write(Object.entries(add(thirdObject,forthObject,fifthObject)) + "<br>");
+let numberCount = function(){
+        for(let i = 0; i < array.length; i++){
+            let arr = array[i];
+            result[arr] = result[arr] + 1 || 1;
+        }
+}
 
-  /////////////////////////intersect of object////////////////////////////////
-  
-  function intersect(thirdObject,forthObject){
-    return Object.keys(thirdObject).filter(item => item in forthObject);
-  }
+randn_bm();
+numberCount();
 
-  document.write(Object.values(intersect(thirdObject,forthObject)));
+document.write("Ten random number: " + array + "<br>");
+document.write("Result: " + JSON.stringify(result));
+
 
