@@ -1,42 +1,41 @@
-/*let randn_bm = function() {  
-    let u = 0, v = 0;  
-        while (u === 0) 
-            u = Math.random();  
-        while (v === 0) 
-            v = Math.random();  
-    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * 2 | 0;
-};*/
+function range(min, max) {
+    try{
+        let sum = 0 ;
 
-const array = [];
-const result = {};
+        min = +prompt("Enter min");
+        max = +prompt("Enter max");
 
-let randn_bm = function(){
-    while (array.length < 10) {
-        let u = 0;
-        let v = 0;  
-            while (u === 0) {
-                u = Math.random(); 
-            }
-            while (v === 0) {
-                v = Math.random(); 
-            }
-
-    let number = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * 2 | 0;
-    array.push(number);
-}
-}
-
-let numberCount = function(){
-        for(let i = 0; i < array.length; i++){
-            let arr = array[i];
-            result[arr] = result[arr] + 1 || 1;
+        for(let i = min; i <= max; i++){        
+            sum += i;
         }
-}
 
-randn_bm();
-numberCount();
+        if (min > max) {
+            throw new SyntaxError(`${min} bigger then ${max}. Please, enter right order.`);
+        }
+        if (isNaN(min) || isNaN(max)) {
+            throw new SyntaxError("Please, enter the number, not string."); 
+        }
+        if (min == '' || max == '') {
+            throw new SyntaxError("The string can't be empty. Please, enter numbers."); 
+        }
+        if (min == max) {
+            throw new SyntaxError("Min can't be equal to max. Please, enter another numbers."); 
+        }
+        if (sum > Number.MAX_SAFE_INTEGER) {
+            throw new SyntaxError("It's really big sum. Please, enter another numbers."); 
+        } 
+        if(!Number.isInteger(min) || !Number.isInteger(max)){
+            throw new SyntaxError("Please, enter the integer number."); 
+        } else{
+            return alert(`Sum of numbers: ${sum}`);
+        }
 
-document.write("Ten random number: " + array + "<br>");
-document.write("Result: " + JSON.stringify(result));
+    } catch(err){
+        alert(err.message);
+    } finally{
+        alert("Thanks");
+    }    
+  }
 
+range();
 
