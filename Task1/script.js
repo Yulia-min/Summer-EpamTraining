@@ -1,25 +1,66 @@
-const combinationOfLetters = (letters) =>{
-      let array = [];
-      for (let i = 0; i < letters.length; i++){
-        let string = letters.slice(0, i) + letters.slice(i + 1);
-        let fullString = combinationOfLetters(string)
+class Entity{
+    constructor(name){
+        this.name = name;
+    }
+    getName() {
+        return this.name
+    }
+}
 
-        for (let k = 0; k < fullString.length; k++){
-          array = array.concat(letters[i] + fullString[k]) 
-        }          
-      }
-      if(letters.length == 1){
-        return letters
-      }
-      if(letters.length == 0){
-        return new Error("Please, enter the string"); 
-      }else{
-        return array
-      }     
-  }
+class Box extends Entity {
+    staff = [];
 
-document.write("Result: " + combinationOfLetters("abc") )
+    constructor(name, staff){
+        super(name)
+        this.staff = staff;
+    }
 
+    getName(){
+        const name = super.getName()
+        if(name.length < 3){
+            return 'You need more letters '
+        }
+        return name
+    }
+}
 
+class Staff extends Entity{
+    constructor(name){
+        super(name)
+    }
 
+    getName() {
+        return this.name
+    }
 
+    nameIncludes(str){
+        return this.getName().indexOf(str)
+    }
+}
+
+class User extends Entity{
+    box = [];
+    constructor(name, box){
+        super(name)
+        this.box = box;
+    }
+
+    getName(){
+        const name = super.getName()
+        if(name == ''){
+            return 'Say something '
+        }
+        return name
+    }
+}
+
+const boxes = new Box('A ', [20,'years']);
+console.log(boxes.getName() + boxes.staff)
+const staffs = new Staff('Hello');
+console.log(staffs.nameIncludes("Hello"))
+const users = new User('',['Yulia', 'Klepitskaya']);
+console.log(users.getName() + users.box)
+
+  
+
+ 
