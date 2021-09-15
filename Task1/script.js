@@ -1,64 +1,58 @@
-class Entity{
-    constructor(name){
-        this.name = name;
+const title = document.getElementById("title");
+
+let move = "x";
+let winner = 1;
+let counter = 0;
+
+let array = [
+  [1,1,1],
+  [1,1,1],
+  [1,1,1]
+]
+
+
+function сlick(elem, row, colomn){
+
+  array[row][colomn] = move;
+  counter++;
+
+  if(move == "x"){
+    elem.innerHTML = "x";
+    title.innerHTML = " Move o player";
+    move = "o";
+  } else {
+    elem.innerHTML = "o";
+    title.innerHTML = " Move x player";
+    move = "x";
+  }
+
+  for(let i = 0; i < 3; i++){
+    if(array[i][0] == array[i][1] && array[i][1] == array[i][2]){
+      winner = array[i][0];
     }
-    getName() {
-        return this.name;
+    if(array[0][i] == array[1][i] && array[1][i] == array[2][i]){
+      winner = array[0][i];
+    }   
+    if(array[0][0] == array[1][1] && array[1][1] == array[2][2]){
+      winner = array[0][0];
     }
+    if(array[0][2] == array[1][1] && array[1][1] == array[2][0]){
+      winner = array[0][2];
+    }
+  }
+
+  if(winner != 1 ){
+    alert("Player " + winner + " win");
+    location.reload();
+  }
+
+  if(winner == 1 && counter == 9){
+    alert("Draw");
+    location.reload();
+  }
 }
 
-class Box extends Entity {
-
-    constructor(name, staff){
-        super(name);
-        this.staff = staff || [];
-    }
-
-    getName(){
-        const name = super.getName()
-        if(name.length < 3){
-            return 'You need more letters ';
-        }
-        return name;
-    }
-}
-
-class Staff extends Entity{
-    constructor(name){
-        super(name);
-    }
-
-    getName() {
-        return this.name;
-    }
-
-    nameIncludes(str){
-        return this.getName().indexOf(str);
-    }
-}
-
-class User extends Entity{
-
-    constructor(name, box){
-        super(name);
-        this.box = box || [];
-    }
-
-    getName(){
-        const name = super.getName()
-        if(name == ''){
-            return 'Say something '
-        }
-        return name;
-    }
-}
-
-const boxes = new Box('A', [new Staff('123'), new Staff('567')]);
-console.log(boxes);
-const staffs = new Staff('Hello');
-console.log(staffs);
-const users = new User('',[boxes, new Box('345')]);
-console.log(users);
 
 
- 
+
+

@@ -2,10 +2,34 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Seven task</title>
+        <title>Nine task</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <h1>Classes</h1>
+        <h1>Tic Tac Toe</h1>
+
+        <div class="title" id="title">
+            Move x player
+        </div>
+
+        <table class="table">
+            <tr class="row">
+                <td class="colomn" onclick="сlick(this, 0, 0)"></td>
+                <td class="colomn" onclick="сlick(this, 0, 1)"></td>
+                <td class="colomn" onclick="сlick(this, 0, 2)"></td>
+            </tr>
+            <tr  class="row">
+                <td class="colomn" onclick="сlick(this, 1, 0)"></td>
+                <td class="colomn" onclick="сlick(this, 1, 1)"></td>
+                <td class="colomn" onclick="сlick(this, 1, 2)"></td>
+            </tr>
+            <tr class="row">
+                <td class="colomn" onclick="сlick(this, 2, 0)"></td>
+                <td class="colomn" onclick="сlick(this, 2, 1)"></td>
+                <td class="colomn" onclick="сlick(this, 2, 2)"></td>
+            </tr>
+        </table>
+
         <script src="script.js"></script>
     </body>
 </html>    

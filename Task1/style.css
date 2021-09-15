@@ -1,0 +1,31 @@
+h1{
+    text-align: center;
+}
+
+.title{
+    text-align: center;
+    font-size: 140%;    
+    font-weight: bolder;
+}
+
+.table{
+    position: absolute;
+    margin-left: 25%;
+    margin-top: 1%;
+    width: 50%;
+    height: 50%;
+}
+
+ .row{
+    height: 30%;
+}
+
+.colomn{
+    height: 100%;
+    width: 30%;
+    border: 2px solid black;
+    float: left;
+    font-size: 70px;
+    font-weight: bolder;
+    text-align: center;
+}
