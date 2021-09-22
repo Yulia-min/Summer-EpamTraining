@@ -1,58 +1,39 @@
-const title = document.getElementById("title");
+const th = table.querySelectorAll('th');
+const tbody = table.querySelector('tbody');
+const row = Array.from(tbody.rows);
+const input = document.createElement('input');
 
-let move = "x";
-let winner = 1;
-let counter = 0;
+[].forEach.call(th, function (th, elem) {
+  th.addEventListener('click', function () {
+    sort(elem);
+  });
+});
 
-let array = [
-  [1,1,1],
-  [1,1,1],
-  [1,1,1]
-]
+tbody.addEventListener('click', cellClick)
 
+function sort(elem) {
 
-function сlick(elem, row, colomn){
+  let compare = function (rowA, rowB) {
+    return rowA.cells[elem].innerHTML > rowB.cells[elem].innerHTML ? 1 :
+      rowA.cells[elem].innerHTML < rowB.cells[elem].innerHTML ? -1 : 0;
+  };
 
-  array[row][colomn] = move;
-  counter++;
-
-  if(move == "x"){
-    elem.innerHTML = "x";
-    title.innerHTML = " Move o player";
-    move = "o";
-  } else {
-    elem.innerHTML = "o";
-    title.innerHTML = " Move x player";
-    move = "x";
-  }
-
-  for(let i = 0; i < 3; i++){
-    if(array[i][0] == array[i][1] && array[i][1] == array[i][2]){
-      winner = array[i][0];
-    }
-    if(array[0][i] == array[1][i] && array[1][i] == array[2][i]){
-      winner = array[0][i];
-    }   
-    if(array[0][0] == array[1][1] && array[1][1] == array[2][2]){
-      winner = array[0][0];
-    }
-    if(array[0][2] == array[1][1] && array[1][1] == array[2][0]){
-      winner = array[0][2];
-    }
-  }
-
-  if(winner != 1 ){
-    alert("Player " + winner + " win");
-    location.reload();
-  }
-
-  if(winner == 1 && counter == 9){
-    alert("Draw");
-    location.reload();
-  }
+  row.sort(compare);
+  tbody.append(...row);
 }
 
+function cellClick(event) { 
+  if (event.target.tagName === 'TD') {
+    input.type = 'text';
+    input.value = event.target.innerHTML;
+    input.addEventListener('blur', function(){
+      this.parentElement.textContent = this.value;
+      this.removeEventListener('blur', inputEvent);
+    });
 
+    event.target.textContent = '';
+    event.target.appendChild(input);
 
-
-
+    input.focus();
+  }
+}
