@@ -2,53 +2,26 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ten task</title>
+        <title>Eleven task</title>
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <h1>Events</h1>
-
-        <div class="blok">
-            <table id="table">
-                 <thead>
-                     <tr>
-                      <th>First colomn</th>
-                      <th>Second colomn</th>
-                      </tr>
-                 </thead>
-                 <tbody>
-                    <tr>
-                     <td>HRT</td>
-                     <td>Hello</td>
-                    </tr>
-                    <tr>
-                     <td>KFE</td>
-                     <td>Hi</td>
-                    </tr>
-                    <tr>
-                     <td>EYR</td>
-                     <td>Yulia</td>
-                    </tr>
-                    <tr>
-                     <td>KEY</td>
-                     <td>Kliapitskaya</td>
-                    </tr>
-                    <tr>
-                     <td>LOS</td>
-                     <td>Dmitrievna</td>
-                    </tr>
-                    <tr>
-                     <td>HOE</td>
-                     <td>20age</td>
-                    </tr>                   
-                    <tr>
-                     <td>PEO</td>
-                     <td>Nice day</td>
-                    </tr>                    
-                </tbody>
-            </table>
+        <h1>Asynchrony</h1>
+        <div style="margin-bottom: 5px;">First number
+            <input type="number" id="firstNumber">
         </div>
-
+        <div style="margin-bottom: 5px;">Second number
+            <input type="number" id="secondNumber">
+        </div>
+        <button onclick="add()">add</button>
+        <button onclick="subtract()">subtract</button>
+        <button onclick="multiply()">multiply</button>
+        <button onclick="divide()">divide</button>
+        <br>
+        <div style="margin-top: 5px;">Result:
+            <div id="result"></div>
+        </div> 
+        <br>
         <script src="script.js"></script>
     </body>
 </html>    
