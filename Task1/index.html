@@ -7,21 +7,14 @@
     </head>
     <body>
         <h1>Asynchrony</h1>
-        <div style="margin-bottom: 5px;">First number
-            <input type="number" id="firstNumber">
+        <div>
+            <input type="text" id="rpn" onchange="rpn()">
         </div>
-        <div style="margin-bottom: 5px;">Second number
-            <input type="number" id="secondNumber">
+        <br> 
+        <div>Result:
+            <output id="result"></output>
         </div>
-        <button onclick="add()">add</button>
-        <button onclick="subtract()">subtract</button>
-        <button onclick="multiply()">multiply</button>
-        <button onclick="divide()">divide</button>
-        <br>
-        <div style="margin-top: 5px;">Result:
-            <div id="result"></div>
-        </div> 
-        <br>
+
         <script src="script.js"></script>
-    </body>
+    </body> 
 </html>    
