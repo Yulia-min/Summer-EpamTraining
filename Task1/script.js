@@ -1,51 +1,51 @@
-const input = document.getElementById('rpn');
-const output = document.getElementById('result');
+const categoriesSelect = document.getElementById('categories');
+const titlesSelect = document.getElementById('titles');
+const fullinfo = document.getElementById('fullinfo');
 
-async function add(firstNumber, secondNumber){
-  await new Promise(r => setTimeout(r, 2000));
-  return firstNumber + secondNumber;
+let entries = [];
+
+function loadSelect(select, list) {
+  select.innerHTML = '';
+  const options = list.map(el => new Option(value=el));
+  options.forEach( o => select.appendChild(o));
 }
 
-async function subtract(firstNumber, secondNumber){
-  await new Promise(r => setTimeout(r, 1000));
-  return firstNumber - secondNumber;
+async function getCategories() {
+  try {
+    const data = await fetch('https://api.publicapis.org/categories');
+    const categories = await data.json();
+
+    return categories;
+  } catch(error) {
+    console.log(error.message);
+  }
+
 }
 
-async function multiply(firstNumber, secondNumber){
-  await new Promise(r => setTimeout(r, 3000));
-  return firstNumber * secondNumber;
+async function getEntries(category) {
+  try {
+    const data = await fetch(`https://api.publicapis.org/entries?category=${category}&https=true`);
+    const dataJSON = await data.json();
+    const entries = dataJSON.entries;
+    return entries;
+
+  } catch(error) {
+    console.log(error.message);
+  }
 }
 
-async function divide(firstNumber, secondNumber){
-  await new Promise(r => setTimeout(r, 4000));
-  return firstNumber / secondNumber;
+async function categoriesChange() {
+  const category = this.value;
+  entries = await getEntries(category);
+  const titles = entries.map(entry => entry.API);
+  loadSelect(titlesSelect, titles);
 }
 
-const operations = {
-  "+": add,
-  "-": subtract,
-  "*": multiply,
-  "/": divide,
-};
+async function init() {
+    categoriesSelect.addEventListener('change', categoriesChange);
 
-async function rpnSolver(rpnString) {
-  let stack = [];
-  
-  const tokens = rpnString.split(' ');
-  for(const token of tokens) {
-      if (token in operations) {
-          let [y, x] = [stack.pop(), stack.pop()];
-          const result = await operations[token](x, y);
-          stack.push(result);
-      } else {
-          stack.push(parseFloat(token));
-      }
-  };
-
-  return stack.pop();
-};
-
-async function rpn() {
-  output.value = await rpnSolver(input.value);
+    loadSelect(categoriesSelect, await getCategories());
+    categoriesChange.call(categoriesSelect);
 }
 
+init();
