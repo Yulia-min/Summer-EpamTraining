@@ -1,56 +1,76 @@
-import { loadSelect } from "./module/loadSelect.js";
-import { getEntries } from "./module/getEntries.js";
+const [mainElement] = document.getElementsByClassName('main');
+const [formElement] = document.getElementsByClassName('form');
+const formFields = document.querySelectorAll('.form__field > input');
+const errorElements = document.querySelectorAll('.form__field > div');
+const [div] = document.getElementsByClassName('div');
+const [lightButtonElement, darkButtonElement] = document.getElementsByClassName('theme-buttom');
 
-const categoriesSelect = document.getElementById('categories');
-const titlesSelect = document.getElementById('titles');
-const fullinfo = document.getElementById('fullinfo');
+const [nameElement, passwordElement] = formFields;
+const [nameErrorElement, passwordErrorElement] = errorElements;
 
-let entries = [];
-
-function showInfo(title) {
-  const entry = entries.find(e => e.API === title);
-  fullinfo.innerHTML = Object.entries(entry).map((e)=>`${e[0]}: ${e[1]}`).join('\n');
+const ERRORS = {
+    REQUIRED: 'Should not be empty',
 }
 
-async function getCategories() {
-  try {
-    const data = await fetch('https://api.publicapis.org/categories');
-    const categories = await data.json();
+function clickHandler(){
+    formElement.addEventListener('submit', (event) => {
+      event.preventDefault();
 
-  return categories;
-  } catch(error) {
-    console.log(error.message);
-  }
-}
-
-async function categoriesChange() {
-  const category = this.value;
-  entries = await getEntries(category);
-
-  const titles = entries.map(entry => entry.API);
-
-  loadSelect(titlesSelect, titles);
-  showInfo(titles[0]);
-}
-
-async function titlesChange() {
-  const title = this.value;
+      const name = document.getElementById('name').value;
+      const password = document.getElementById('password').value;
   
-  showInfo(title);
+      let isValid = true;
+  
+      formFields.forEach(e => e.classList.remove('form__field_error'));
+      errorElements.forEach(e => e.innerHTML = '');
+    
+      const user = {
+        password : password,
+        name : name,
+      };
+    
+      let json = JSON.stringify(user);
+   
+      if (!requiredValidator(nameElement.value)) {
+          nameElement.classList.add('form__field_error');
+          nameErrorElement.innerHTML = ERRORS.REQUIRED;
+          isValid = false;
+      }
+  
+      if (!requiredValidator(passwordElement.value)) {
+          passwordElement.classList.add('form__field_error');
+          passwordErrorElement.innerHTML = ERRORS.REQUIRED;
+          isValid = false;
+      }
+  
+      if (isValid) {
+        localStorage.setItem(user, json)
+
+        state = div.style.display;
+        if (state == ''){
+          div.style.display='none';
+        }else div.style.display='';
+
+        message.innerHTML = `Welcome, ${name}`
+      }
+    });
+  
 }
 
-async function init() {
-  categoriesSelect.addEventListener('change', categoriesChange);
-  titlesSelect.addEventListener('change', titlesChange);
+function changeTheme(){
+  lightButtonElement.addEventListener('click', () => {
+    mainElement.classList.remove('main_dark');
+    mainElement.classList.add('main_light'); 
+  });
 
-  loadSelect(categoriesSelect, await getCategories());
-  categoriesChange.call(categoriesSelect);
+  darkButtonElement.addEventListener('click', () => {
+      mainElement.classList.remove('main_light');
+      mainElement.classList.add('main_dark'); 
+  });
 }
 
-async function load() {
-  let click = await import('./module/clickHandler.js');
-  click.clickHandler();
+function requiredValidator(value) {
+    return Boolean(value.trim());
 }
 
-load();
-init();
+clickHandler()

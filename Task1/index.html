@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Fourteen task</title>
-    </head>
-    <body>
-        <h1>Module</h1>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
 
-        <form>
-            <select id="categories"></select>
-            <select id="titles"></select>
-            <pre id="fullinfo"></pre>
-        </form>
+<body>
+    <main class="main main_dark">   
+        <div class="div">
+            <form class="form form_dark " onsubmit="clickHandler()">
+                <h1 class="form__title">Login</h1>
+    
+                <div class="form__field">
+                    <input type="text" placeholder="*Name" id="name">
+                    <div></div>
+                </div>
+                
+                <div class="form__field">
+                    <input type="password" placeholder="*Password" id="password">
+                    <div></div>
+                </div>
+                
+                <div class="form__submit">
+                    <button type="submit" class="form_dark">Sign up</button>
+                </div>
+              
+            </form>
+        </div> 
 
-        <script  type ="module" src="script.js"></script>
-    </body> 
-</html>  
+        <p id="message" class="message"></p>
+
+        <div class="theme-buttom theme-buttom_light" onclick="changeTheme()">Light</div>
+        <div class="theme-buttom theme-buttom_dark" onclick="changeTheme()">Dark</div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
